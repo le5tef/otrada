@@ -13,9 +13,7 @@ export default {
     News,
   },
 
-  data: () => ({
-    //
-  }),
+  data: () => ({}),
 };
 </script>
 

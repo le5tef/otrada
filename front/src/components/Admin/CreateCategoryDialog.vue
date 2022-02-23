@@ -59,6 +59,7 @@ export default {
           title: this.title,
           type: this.type,
         };
+        this.title = "";
         this.createCategory(category);
       }
     },

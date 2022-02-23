@@ -127,7 +127,7 @@ export default {
         };
 
         this.createPost(post);
-        // this.$refs.form.reset();
+        this.$refs.form.reset();
       }
     },
   },
