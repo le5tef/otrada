@@ -10,7 +10,7 @@
           <a href="https://t.me/unexpectedjoy">Евгений</a>
         </li>
         <li class="list-inline-item">
-          <a href="https://t.me/otradal">Gips</a>
+          <a href="https://t.me/otradal">Otrdal</a>
         </li>
       </ul>
       <p class="copyright">Отрада Лесная © 2022</p>
