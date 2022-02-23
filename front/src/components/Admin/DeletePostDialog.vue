@@ -10,14 +10,13 @@
         <v-card-title>Выберите пост</v-card-title>
         <v-divider></v-divider>
         <v-card-text style="height: 300px">
-          <v-radio-group multiple v-model="dialogm1" column>
-            <v-radio
-              v-for="post in posts"
-              :key="post.id"
-              :label="post.title"
-              :value="post._id"
-            ></v-radio>
-          </v-radio-group>
+          <v-checkbox
+            v-for="post in posts"
+            :key="post.id"
+            v-model="dialogm1"
+            :label="post.title"
+            :value="post._id"
+          ></v-checkbox>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
@@ -41,6 +40,7 @@ export default {
     del() {
       if (this.dialogm1.length > 0) {
         this.deletePosts(this.dialogm1);
+        this.dialogm1 = [];
         this.dialog = false;
       }
     },

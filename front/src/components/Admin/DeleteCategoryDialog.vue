@@ -16,32 +16,24 @@
             label="Выберите тип записи"
           >
           </v-select>
-          <v-radio-group
-            v-if="type == 'Реклама'"
-            multiple
-            v-model="dialogm1"
-            column
-          >
-            <v-radio
+          <div v-if="type == 'Реклама'">
+            <v-checkbox
               v-for="add in adsCategories"
               :key="add.id"
               :label="add.title"
               :value="add._id"
-            ></v-radio>
-          </v-radio-group>
-          <v-radio-group
-            v-if="type == 'Новость'"
-            multiple
-            v-model="dialogm2"
-            column
-          >
-            <v-radio
+              v-model="dialogm1"
+            ></v-checkbox>
+          </div>
+          <div v-if="type == 'Новость'">
+            <v-checkbox
               v-for="news in newsCategories"
               :key="news.id"
               :label="news.title"
               :value="news._id"
-            ></v-radio>
-          </v-radio-group>
+              v-model="dialogm2"
+            ></v-checkbox>
+          </div>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
@@ -75,6 +67,8 @@ export default {
         var categories = [...this.dialogm2, ...this.dialogm1];
         console.log(categories);
         this.deleteCategories(categories);
+        this.dialogm2 = [];
+        this.dialogm1 = [];
         this.dialog = false;
       }
     },

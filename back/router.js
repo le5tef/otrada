@@ -21,6 +21,7 @@ router.get('/backs', BackController.getAll)
 router.post('/backs', BackController.create)
 router.post('/backs/:id/add-media', BackController.addMedia)
 router.delete('/backs/:id', BackController.delete)
+router.post('/check-pass', (req, res) => { res.json('ok') })
 
 
 export default router;

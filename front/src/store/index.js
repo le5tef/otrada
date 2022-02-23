@@ -162,6 +162,9 @@ export default new Vuex.Store({
         await apiService.delete(`/api/posts/${posts[i]}`)
       }
       context.dispatch('fetchData')
+    },
+    async checkPassword() {
+      return await apiService.post('/api/check-pass')
     }
 
 

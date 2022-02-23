@@ -39,6 +39,7 @@
           <DeleteBack class="my-2" />
           <DeletePost class="my-2" />
           <DeleteCategory class="my-2" />
+          <v-btn width="100%" @click="logout()">ВЫЙТИ</v-btn>
         </div>
       </div>
     </v-container>
@@ -62,9 +63,19 @@ export default {
     DeleteCategory,
   },
   methods: {
-    authification(pass) {
+    async authification(pass) {
       localStorage.setItem("pass", pass);
-      this.auth = true;
+      this.check();
+    },
+    logout() {
+      localStorage.setItem("pass", "");
+      this.auth = false;
+    },
+    async check() {
+      const resp = await this.$store.dispatch("checkPassword");
+      if (resp.data == "ok") {
+        this.auth = true;
+      }
     },
   },
   data() {
@@ -72,6 +83,9 @@ export default {
       auth: false,
       password: "",
     };
+  },
+  mounted: function () {
+    this.check();
   },
 };
 </script>
