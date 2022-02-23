@@ -5,8 +5,10 @@ import axios from 'axios'
 Vue.use(Vuex)
 
 const apiService = axios.create({
+  baseURL: process.env.VUE_APP_API_BASE || '',
   transformRequest: [
     (data, headers) => {
+
       const pass = localStorage.getItem('pass');
       if (pass)
         headers["Authorization"] = `${pass}`;
@@ -62,7 +64,7 @@ export default new Vuex.Store({
   },
   actions: {
     fetchCategories({ commit }) {
-      return apiService('http://localhost:5000/api/categories', {
+      return apiService('/api/categories', {
         method: "GET"
       })
         .then((response) => {
@@ -72,7 +74,7 @@ export default new Vuex.Store({
 
     },
     fetchData({ commit }) {
-      return apiService('http://localhost:5000/api/posts/', {
+      return apiService('/api/posts/', {
         method: "GET"
       })
         .then((response) => {
@@ -80,10 +82,10 @@ export default new Vuex.Store({
           const posts = response.data.map(post => {
             post.id = post._id
             post.media = post.media.map(x => {
-              return 'http://localhost:5000/' + x
+              return process.env.VUE_APP_STATIC_BASE + x
             })
             post.video = post.video.map(x => {
-              return 'http://localhost:5000/' + x
+              return process.env.VUE_APP_STATIC_BASE + x
             })
             return post
           })
@@ -93,7 +95,7 @@ export default new Vuex.Store({
 
     },
     fetchBacks({ commit }) {
-      return apiService('http://localhost:5000/api/backs', {
+      return apiService('/api/backs', {
         method: "GET"
       })
         .then((response) => {
@@ -106,13 +108,13 @@ export default new Vuex.Store({
     async createPost(context, post) {
       const media = post.media
       delete post.media
-      await apiService.post("http://localhost:5000/api/posts/", post)
+      await apiService.post("/api/posts/", post)
         .then(async response => {
           const id = response.data._id
           for (var i = 0; i < media.length; i++) {
             var formData = new FormData();
             formData.append("media", media[i]);
-            await apiService.post(`http://localhost:5000/api/posts/${id}/add-media`, formData, {
+            await apiService.post(`/api/posts/${id}/add-media`, formData, {
               headers: {
                 'Content-Type': 'multipart/form-data'
               }
@@ -122,16 +124,16 @@ export default new Vuex.Store({
       context.dispatch('fetchData')
     },
     createCategory(context, category) {
-      apiService.post("http://localhost:5000/api/categories/", category)
+      apiService.post("/api/categories/", category)
       context.dispatch('fetchCategories')
     },
     async createBack(context, media) {
-      await apiService.post("http://localhost:5000/api/backs/", media)
+      await apiService.post("/api/backs/", media)
         .then(async response => {
           const id = response.data._id
           var formData = new FormData();
           formData.append('src', media);
-          await apiService.post(`http://localhost:5000/api/backs/${id}/add-media`, formData, {
+          await apiService.post(`/api/backs/${id}/add-media`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             }
@@ -142,13 +144,13 @@ export default new Vuex.Store({
     },
     async deleteCategories(context, categories) {
       for (var i = 0; i < categories.length; i++) {
-        await apiService.delete(`http://localhost:5000/api/categories/${categories[i]}`)
+        await apiService.delete(`/api/categories/${categories[i]}`)
       }
       context.dispatch('fetchCategories')
     },
     async deleteBacks(context, backs) {
       for (var i = 0; i < backs.length; i++) {
-        await apiService.delete(`http://localhost:5000/api/backs/${backs[i]}`)
+        await apiService.delete(`/api/backs/${backs[i]}`)
       }
       context.dispatch('fetchBacks')
     },
@@ -156,8 +158,8 @@ export default new Vuex.Store({
     async deletePosts(context, posts) {
       for (var i = 0; i < posts.length; i++) {
 
-        await apiService.delete(`http://localhost:5000/api/posts/${posts[i]}/delete-media`)
-        await apiService.delete(`http://localhost:5000/api/posts/${posts[i]}`)
+        await apiService.delete(`/api/posts/${posts[i]}/delete-media`)
+        await apiService.delete(`/api/posts/${posts[i]}`)
       }
       context.dispatch('fetchData')
     }

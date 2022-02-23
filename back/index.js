@@ -3,16 +3,17 @@ import mongoose from 'mongoose'
 import fileUpload from 'express-fileupload'
 import router from './router.js'
 import cors from 'cors'
+import 'dotenv/config'
 
 const PORT = 5000;
-const DB_URL = 'mongodb+srv://le5tef:analsex@cluster0.izow9.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const DB_URL = process.env.DB_URL
 
 const app = express()
 
 async function authMiddleware(req, res, next) {
     console.log("auth")
     if ((req.method == 'PUT' || req.method == 'DELETE' || req.method == 'POST') && req.headers.authorization != "qQfg52t5aw2dW") {
-        console.log('идинваухй1')
+        console.log('неа')
         return res.status(403).send({ 'status': 'Ага, щас' })
     }
     next()
@@ -22,7 +23,7 @@ async function authMiddleware(req, res, next) {
 app.use(cors());
 app.options('*', cors());
 app.use(express.json())
-app.use(express.static('static'))
+app.use('/static/', express.static('static'));
 app.use(fileUpload())
 app.use(authMiddleware)
 app.use('/api', router)

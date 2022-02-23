@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     getImage(back) {
-      return "http://localhost:5000/" + back.src;
+      return process.env.VUE_APP_STATIC_BASE + back.src;
     },
     ...mapActions(["deleteBacks"]),
     del() {

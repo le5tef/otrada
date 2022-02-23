@@ -46,7 +46,7 @@ export default {
           return back;
         })
         .map((x) => {
-          return "http://localhost:5000/" + x;
+          return process.env.VUE_APP_STATIC_BASE + x;
         });
 
       var random = Math.floor(Math.random() * arr.length);
