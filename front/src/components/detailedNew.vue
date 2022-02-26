@@ -66,9 +66,7 @@
               <h3>{{ post.contacts }}</h3>
             </v-col>
             <v-col cols="12" md="4" class="d-flex justify-center">
-              <v-btn text v-if="post.link" :href="post.link">
-                Ссылка на телеграм
-              </v-btn>
+              <v-btn text v-if="post.link" :href="post.link"> Ссылка </v-btn>
             </v-col>
           </v-row>
         </div>
