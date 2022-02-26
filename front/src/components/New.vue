@@ -14,6 +14,12 @@
                 ? post.description.slice(0, 35) + '...'
                 : $vuetify.breakpoint.name == 'xl'
                 ? post.description.slice(0, 110) + '...'
+                : $vuetify.breakpoint.name == 'lg'
+                ? post.description.slice(0, 70) + '...'
+                : $vuetify.breakpoint.name == 'sm'
+                ? post.description.slice(0, 50) + '...'
+                : $vuetify.breakpoint.name == 'xs'
+                ? post.description.slice(0, 35) + '...'
                 : post.description.slice(0, 70) + '...'
             "
           ></p>
