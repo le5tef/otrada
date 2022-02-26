@@ -46,8 +46,8 @@
                 </v-col>
                 <v-col cols="12">
                   <v-text-field
-                    placeholder="https://t.me"
-                    label="Ссылка на телеграм"
+                    placeholder="https://"
+                    label="Ссылка"
                     v-model="link"
                   ></v-text-field>
                 </v-col>

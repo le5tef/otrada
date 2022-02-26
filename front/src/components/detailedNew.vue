@@ -60,7 +60,7 @@
           <h1>
             {{ post.title }}
           </h1>
-          <p class="my-4">{{ post.description }}</p>
+          <p v-html="post.description" class="my-4"></p>
           <v-row>
             <v-col cols="12" md="8" class="d-flex justify-center">
               <h3>{{ post.contacts }}</h3>
