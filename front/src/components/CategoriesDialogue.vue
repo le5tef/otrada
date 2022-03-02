@@ -12,7 +12,7 @@
           v-bind="attrs"
           v-on="on"
         >
-          <div style="color: white">Фильтры</div>
+          <div style="color: white">Категории</div>
           <v-icon color="white">mdi-filter</v-icon>
         </v-btn>
         <v-spacer></v-spacer>
