@@ -2,6 +2,7 @@
   <div class="mt-4">
     <Carousel />
     <div>
+      <CategoriesDialog />
       <v-row class="no-gutters">
         <v-col
           v-if="
@@ -13,6 +14,7 @@
         >
           <NewsList />
         </v-col>
+
         <v-col
           cols="12"
           offset-md="2"
@@ -22,7 +24,7 @@
           class="pa-4 pa-md-0"
         >
           <v-row
-            class="no-gutters container rounded-xl my-4 pa-1"
+            class="no-gutters container rounded-xl my-md-4 pa-1"
             v-if="cutedPosts.length != 0"
           >
             <v-col
@@ -65,6 +67,7 @@ import New from "../components/New.vue";
 import Carousel from "../components/Slider.vue";
 import Categories from "../components/Categories.vue";
 import NewsList from "../components/NewsComponent.vue";
+import CategoriesDialog from "../components/CategoriesDialogue.vue";
 import { mapGetters, mapMutations, mapState } from "vuex";
 export default {
   computed: {
@@ -74,7 +77,7 @@ export default {
   methods: {
     ...mapMutations(["changeNews"]),
   },
-  components: { New, Carousel, Categories, NewsList },
+  components: { New, Carousel, Categories, NewsList, CategoriesDialog },
 };
 </script>
 
