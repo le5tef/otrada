@@ -39,7 +39,7 @@
 <script>
 import Categories from "../components/Categories.vue";
 import NewsList from "../components/NewsComponent.vue";
-import { mapState } from "vuex";
+
 export default {
   data() {
     return {
@@ -49,9 +49,6 @@ export default {
   components: {
     Categories,
     NewsList,
-  },
-  computed: {
-    ...mapState("categoriesDialogue"),
   },
 };
 </script>
