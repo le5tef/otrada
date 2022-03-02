@@ -8,7 +8,7 @@
     <div class="title text-center">Новость - жизнь в ЖК</div>
     <div class="categories pa-4 white rounded-xl d-flex flex-column">
       <div v-for="(category, id) in newsCategories" :key="id">
-        <v-btn @click="setFilter(category._id)" width="100%">{{
+        <v-btn @click="filterCats(category._id)" width="100%">{{
           category.title
         }}</v-btn>
       </div>
@@ -32,6 +32,11 @@ export default {
   },
   methods: {
     ...mapMutations(["setFilter"]),
+    ...mapMutations(["setFilter", "setCategoriesDialog"]),
+    filterCats(id) {
+      this.setCategoriesDialog(false);
+      this.setFilter(id);
+    },
   },
 };
 </script>

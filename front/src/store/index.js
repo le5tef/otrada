@@ -25,6 +25,7 @@ export default new Vuex.Store({
   state: {
     aa: [],
     bb: [],
+    categoriesDialogue: false,
     createPostDialog: false,
     deletePostDialog: false,
     createCategoryDialog: false,
@@ -42,7 +43,9 @@ export default new Vuex.Store({
 
   },
   mutations: {
-
+    setCategoriesDialog(state, val) {
+      state.categoriesDialogue = val
+    },
     changeNews(state, val) {
       state.postsOnPage += val
     },

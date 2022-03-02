@@ -22,7 +22,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
 
-        <v-btn color="green darken-1" text @click="dialog = false">
+        <v-btn color="green darken-1" text @click="dialog(false)">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-card-actions>
@@ -39,16 +39,25 @@
 <script>
 import Categories from "../components/Categories.vue";
 import NewsList from "../components/NewsComponent.vue";
+import { mapMutations } from "vuex";
 
 export default {
-  data() {
-    return {
-      dialog: false,
-    };
-  },
   components: {
     Categories,
     NewsList,
+  },
+  methods: {
+    ...mapMutations(["setCategoriesDialog"]),
+  },
+  computed: {
+    dialog: {
+      set(val) {
+        this.setCategoriesDialog(val);
+      },
+      get() {
+        return this.$store.state.categoriesDialogue;
+      },
+    },
   },
 };
 </script>

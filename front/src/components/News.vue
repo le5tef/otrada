@@ -2,7 +2,13 @@
   <div class="mt-4">
     <Carousel />
     <div>
-      <CategoriesDialog />
+      <CategoriesDialog
+        v-if="
+          $vuetify.breakpoint.name == 'sm' ||
+          $vuetify.breakpoint.name == 'xs' ||
+          $vuetify.breakpoint.name == 'md'
+        "
+      />
       <v-row class="no-gutters">
         <v-col
           v-if="
