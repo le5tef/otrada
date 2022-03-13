@@ -23,8 +23,7 @@ const apiService = axios.create({
 
 export default new Vuex.Store({
   state: {
-    aa: [],
-    bb: [],
+    request: '',
     categoriesDialogue: false,
     createPostDialog: false,
     deletePostDialog: false,
@@ -32,15 +31,11 @@ export default new Vuex.Store({
     deleteCategoryDialog: false,
     postsOnPage: 6,
     filter: '',
+    weather: {},
+    exchange: {},
     backs: [],
-    categories: [
-
-    ],
-    posts: [
-
-    ]
-
-
+    categories: [],
+    posts: [],
   },
   mutations: {
     setCategoriesDialog(state, val) {
@@ -60,9 +55,16 @@ export default new Vuex.Store({
       state.filter = category
     },
     setBacks(state, backs) {
-
       state.backs = backs
-
+    },
+    setSearchRequest(state, request) {
+      state.request = request
+    },
+    setWeather(state, data) {
+      state.weather = data
+    },
+    setExchange(state, data) {
+      state.exchange = data
     }
   },
   actions: {
@@ -94,6 +96,28 @@ export default new Vuex.Store({
           })
           commit('setPosts', posts);
           return posts;
+        })
+
+    },
+    fetchWeather({ commit }) {
+      return apiService('/api/weather', {
+        method: "GET"
+      })
+        .then((response) => {
+          const weather = response.data
+          commit('setWeather', weather);
+          return weather;
+        })
+
+    },
+    fetchExchange({ commit }) {
+      return apiService('/api/exchange', {
+        method: "GET"
+      })
+        .then((response) => {
+          const exchange = response.data
+          commit('setExchange', exchange);
+          return exchange;
         })
 
     },
@@ -174,16 +198,24 @@ export default new Vuex.Store({
   },
   getters: {
     filteredPosts(state) {
+      let filteredPosts = state.posts
+      // let searchPosts = []
       if (state.filter != '') {
-        return state.posts.filter(x => {
-
+        filteredPosts = filteredPosts.filter(x => {
           return x.subcategory == state.filter
-
         })
       }
-      else {
-        return state.posts
+      if (state.request != '') {
+        filteredPosts = filteredPosts.filter((post) =>
+          state.request.split(" ").map((word) =>
+            post.title.match(new RegExp(`(^| )+(${word})`, "i"))
+          )
+            .every((x) => x)
+        );
       }
+
+      return filteredPosts
+
     },
     adsCategories(state) {
       return state.categories.filter((x) => x.type == 'Реклама')

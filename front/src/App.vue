@@ -35,6 +35,8 @@ export default {
     this.$store.dispatch("fetchData");
     this.$store.dispatch("fetchBacks");
     this.$store.dispatch("fetchCategories");
+    this.$store.dispatch("fetchWeather");
+    this.$store.dispatch("fetchExchange");
   },
   computed: {
     ...mapState(["backs"]),
@@ -57,12 +59,15 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 #random2 {
   background: no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+.gradient {
+  background-image: linear-gradient(132deg, #f4d03f81 0%, #16a085 100%);
 }
 </style>

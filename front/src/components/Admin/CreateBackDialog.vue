@@ -41,7 +41,7 @@
 import { mapGetters, mapActions } from "vuex";
 export default {
   data: () => ({
-    dialog: false,
+    deletePostDialog: false,
 
     files: "",
   }),

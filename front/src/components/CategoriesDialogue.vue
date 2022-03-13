@@ -4,7 +4,7 @@
       <div class="d-flex">
         <v-spacer></v-spacer>
         <v-btn
-          class="rounded-xl mt-4"
+          class="rounded-xl my-4"
           style="
             background: linear-gradient(132deg, #f4d03f81 0%, #16a085 100%);
           "
@@ -21,10 +21,6 @@
     <v-card>
       <v-card-actions>
         <v-spacer></v-spacer>
-
-        <v-btn color="green darken-1" text @click="dialog(false)">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
       </v-card-actions>
       <div class="d-flex flex-column">
         <Categories class="my-3" />

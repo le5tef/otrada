@@ -1,5 +1,6 @@
 <template>
   <div class="mt-4">
+    <WeatherAndExchange />
     <Carousel />
     <div>
       <CategoriesDialog
@@ -29,6 +30,8 @@
           lg="6"
           class="pa-4 pa-md-0"
         >
+          <Search />
+
           <v-row
             class="no-gutters container rounded-xl my-md-4 pa-1"
             v-if="cutedPosts.length != 0"
@@ -73,6 +76,8 @@ import New from "../components/New.vue";
 import Carousel from "../components/Slider.vue";
 import Categories from "../components/Categories.vue";
 import NewsList from "../components/NewsComponent.vue";
+import Search from "../components/Search.vue";
+import WeatherAndExchange from "../components/WeatherAndExchange .vue";
 import CategoriesDialog from "../components/CategoriesDialogue.vue";
 import { mapGetters, mapMutations, mapState } from "vuex";
 export default {
@@ -83,7 +88,15 @@ export default {
   methods: {
     ...mapMutations(["changeNews"]),
   },
-  components: { New, Carousel, Categories, NewsList, CategoriesDialog },
+  components: {
+    New,
+    Carousel,
+    Categories,
+    NewsList,
+    CategoriesDialog,
+    Search,
+    WeatherAndExchange,
+  },
 };
 </script>
 
