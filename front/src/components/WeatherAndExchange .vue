@@ -9,7 +9,7 @@
     >
       <v-row class="no-gutters gradient pa-4 rounded-xl">
         <v-col cols="12" lg="5" class="white rounded-xl">
-          <v-row class="no-gutters weather-panel">
+          <v-row class="no-gutters weather-panel panel">
             <v-col cols="5">
               <h1>Отрадное</h1>
               <h2>
@@ -33,17 +33,32 @@
             </v-col>
           </v-row>
         </v-col>
+
         <v-col
           cols="12"
           offset-lg="2"
           lg="5"
           class="white rounded-xl mt-4 mt-lg-0"
         >
-          <strong>Курс валют:</strong>
-
-          <div v-for="ex in exchange.info" :key="ex._id">
-            {{ ex.charCode }}: {{ ex.value }}
-          </div>
+          <v-row class="exchange-panel panel no-gutters fill-height">
+            <v-col
+              class="d-flex justify-center align-center"
+              cols="4"
+              v-for="ex in exchange.info"
+              :key="ex._id"
+            >
+              <v-icon large color="white"
+                >mdi-currency-{{
+                  ex.charCode == "Юань"
+                    ? "cny"
+                    : ex.charCode == "Евро"
+                    ? "eur"
+                    : "usd"
+                }}</v-icon
+              >
+              <div>{{ Math.round(parseFloat(ex.value) * 100) / 100 }} руб.</div>
+            </v-col>
+          </v-row>
         </v-col>
       </v-row>
     </v-col>
@@ -70,6 +85,7 @@ export default {
       month: "",
     };
   },
+
   computed: {
     ...mapState(["weather", "exchange"]),
     weatherCondition() {
@@ -178,8 +194,7 @@ export default {
 </script>
 
 <style lang='sass' scoped>
-.weather-panel
-  background-image: url("https://unsplash.it/600/400?image=1043&blur")
+.panel
   background-size: cover
   border-radius: 20px
   box-shadow: 25px 25px 40px 0px rgba(0,0,0,0.33)
@@ -197,4 +212,8 @@ export default {
   .temperature
     & > span
       font-size: 2em
+.exchange-panel
+  background-image: url("https://picsum.photos/id/1/400/200/?blur")
+.weather-panel
+  background-image: url("https://unsplash.it/600/400?image=1043&blur")
 </style>

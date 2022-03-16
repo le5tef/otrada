@@ -4,6 +4,7 @@
       <div class="d-flex">
         <v-spacer></v-spacer>
         <v-btn
+          x-large
           class="rounded-xl my-4"
           style="
             background: linear-gradient(132deg, #f4d03f81 0%, #16a085 100%);
