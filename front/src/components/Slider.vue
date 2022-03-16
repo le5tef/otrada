@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row class="no-gutters">
     <v-col cols="12" md="8" offset-md="2">
       <v-carousel
         cycle
