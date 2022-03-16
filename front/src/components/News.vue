@@ -66,6 +66,7 @@
           lg="3"
           ><Categories
         /></v-col>
+        <Map />
       </v-row>
     </div>
   </div>
@@ -79,6 +80,7 @@ import NewsList from "../components/NewsComponent.vue";
 import Search from "../components/Search.vue";
 import WeatherAndExchange from "../components/WeatherAndExchange .vue";
 import CategoriesDialog from "../components/CategoriesDialogue.vue";
+import Map from "../components/MapWidget.vue";
 import { mapGetters, mapMutations, mapState } from "vuex";
 export default {
   computed: {
@@ -96,6 +98,7 @@ export default {
     CategoriesDialog,
     Search,
     WeatherAndExchange,
+    Map,
   },
 };
 </script>
