@@ -6,9 +6,7 @@
         <v-btn
           x-large
           class="rounded-xl my-4"
-          style="
-            background: linear-gradient(132deg, #f4d03f81 0%, #16a085 100%);
-          "
+          style="background: linear-gradient(132deg, #f4d03f 0%, #16a085 100%)"
           dark
           v-bind="attrs"
           v-on="on"
