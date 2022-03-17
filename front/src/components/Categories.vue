@@ -5,7 +5,7 @@
       background-image: linear-gradient(132deg, #f4d03f81 0%, #16a085 100%);
     "
   >
-    <div class="title text-center">Категории - нужные люди</div>
+    <div class="title text-center">НАША ЖИЗНЬ</div>
     <div class="categories pa-4 white rounded-xl d-flex flex-column">
       <div v-for="(category, id) in adsCategories" :key="id">
         <v-btn @click="filterCats(category._id)" width="100%">{{
