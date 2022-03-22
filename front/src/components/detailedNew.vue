@@ -188,7 +188,7 @@ export default {
       editor: ClassicEditor,
       name: "",
       editorData: "",
-      rate: "",
+      rate=0,
       auth: false,
     };
   },
@@ -215,7 +215,7 @@ export default {
       let config = { comment: comment, post_id: this.post.id };
       this.createComment(config);
       this.name = "";
-      this.rate = "";
+      this.rate = 0;
       this.editorData = "";
     },
     deleteCurrentComment(id) {
