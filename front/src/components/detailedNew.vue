@@ -188,7 +188,7 @@ export default {
       editor: ClassicEditor,
       name: "",
       editorData: "",
-      rate=0,
+      rate: 0,
       auth: false,
     };
   },
