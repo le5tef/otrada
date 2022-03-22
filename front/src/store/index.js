@@ -168,7 +168,7 @@ export default new Vuex.Store({
       context.dispatch('fetchCategories')
     },
     async createComment(context, { comment, post_id }) {
-      await apiService.post("/api/comments/", comment)
+      await apiService.post("/api/comments", comment)
       context.dispatch('fetchComments', post_id)
     },
     async createBack(context, media) {
