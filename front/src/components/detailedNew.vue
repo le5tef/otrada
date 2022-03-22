@@ -43,6 +43,11 @@
           </video>
         </div>
         <v-carousel
+          :height="
+            $vuetify.breakpoint.name == 'xs' || $vuetify.breakpoint.name == 'sm'
+              ? 250
+              : 400
+          "
           v-if="showImages"
           :show-arrows="post.media.length > 1 ? true : false"
           :hide-delimiters="post.media.length > 1 ? false : true"
