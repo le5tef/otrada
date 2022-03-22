@@ -24,7 +24,10 @@
             "
           ></p>
 
-          <v-btn :to="{ name: 'post', params: { id: post.id } }">
+          <v-btn
+            :to="{ name: 'post', params: { id: post.id } }"
+            class="hidden-button"
+          >
             Подробнее
           </v-btn>
         </div>
@@ -114,6 +117,9 @@ $content-overlap-collapsed: 3rem;
 $content-overlap: ($content-height - $content-height-collapsed) +
   $content-overlap-collapsed;
 
+.hidden-button {
+  display: none;
+}
 .post {
   &__image {
     width: 100%;
@@ -223,6 +229,9 @@ $content-overlap: ($content-height - $content-height-collapsed) +
 
     &__inside {
       height: $content-height;
+      .hidden-button {
+        display: flex;
+      }
     }
 
     &__image {

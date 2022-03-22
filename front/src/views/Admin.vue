@@ -30,6 +30,7 @@
         </v-col>
       </v-row>
       <div
+        v-if="auth"
         class="admin__wrapper fill-height d-flex align-center justify-center"
       >
         <div>

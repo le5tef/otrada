@@ -36,6 +36,7 @@ export default new Vuex.Store({
     backs: [],
     categories: [],
     posts: [],
+    currentPostsComments: [],
   },
   mutations: {
     setCategoriesDialog(state, val) {
@@ -65,9 +66,21 @@ export default new Vuex.Store({
     },
     setExchange(state, data) {
       state.exchange = data
+    },
+    setComments(state, data) {
+      state.currentPostsComments = data
     }
   },
   actions: {
+    fetchComments({ commit }, post_id) {
+      return apiService(`/api/comments/${post_id}`, {
+        method: "GET"
+      })
+        .then((response) => {
+          commit('setComments', response.data);
+        })
+
+    },
     fetchCategories({ commit }) {
       return apiService('/api/categories', {
         method: "GET"
@@ -154,6 +167,10 @@ export default new Vuex.Store({
       apiService.post("/api/categories/", category)
       context.dispatch('fetchCategories')
     },
+    async createComment(context, { comment, post_id }) {
+      await apiService.post("/api/comments/", comment)
+      context.dispatch('fetchComments', post_id)
+    },
     async createBack(context, media) {
       await apiService.post("/api/backs/", media)
         .then(async response => {
@@ -184,11 +201,14 @@ export default new Vuex.Store({
 
     async deletePosts(context, posts) {
       for (var i = 0; i < posts.length; i++) {
-
         await apiService.delete(`/api/posts/${posts[i]}/delete-media`)
         await apiService.delete(`/api/posts/${posts[i]}`)
       }
       context.dispatch('fetchData')
+    },
+    async deleteComment(context, config) {
+      await apiService.delete(`/api/comments/${config.id}`)
+      context.dispatch('fetchComments', config.post_id)
     },
     async checkPassword() {
       return await apiService.post('/api/check-pass')

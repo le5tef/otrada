@@ -4,7 +4,9 @@ import vuetify from './plugins/vuetify'
 import router from './router'
 import store from './store'
 import Vuex from 'vuex'
+import CKEditor from '@ckeditor/ckeditor5-vue2';
 
+Vue.use(CKEditor);
 Vue.config.productionTip = false
 
 Vue.use(Vuex)

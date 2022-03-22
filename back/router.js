@@ -4,6 +4,7 @@ import CategoryController from './CategoryController.js'
 import BackController from './BackController.js'
 import WeatherController from './WeatherController.js'
 import ExchangeController from './ExchangeController.js'
+import CommentController from './CommentController.js'
 
 const router = new Router()
 router.delete('/posts/:id/delete-media', PostController.deleteMedia)
@@ -25,6 +26,9 @@ router.delete('/backs/:id', BackController.delete)
 router.post('/check-pass', (req, res) => { res.json('ok') })
 router.get('/weather', WeatherController.getLastWeather)
 router.get('/exchange', ExchangeController.getLastExchange)
+router.post('/comments', CommentController.create)
+router.get('/comments/:post', CommentController.getAllByPost)
+router.delete('/comments/:id', CommentController.delete)
 
 
 export default router;

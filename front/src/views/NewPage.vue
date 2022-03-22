@@ -1,6 +1,6 @@
 <template>
   <div>
-    <New :post="post" />
+    <New :post="post" v-if="post" />
   </div>
 </template>
 

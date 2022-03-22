@@ -3,7 +3,11 @@
     <v-col cols="12" md="8" offset-md="2">
       <v-carousel
         cycle
-        height="400"
+        :height="
+          $vuetify.breakpoint.name == 'xs' || $vuetify.breakpoint.name == 'sm'
+            ? 250
+            : 400
+        "
         hide-delimiter-background
         show-arrows-on-hover
       >

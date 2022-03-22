@@ -16,8 +16,15 @@ const startTime = new Date(Date.now() + 1000);
 const app = express()
 
 async function authMiddleware(req, res, next) {
-    console.log("auth")
-    if ((req.method == 'PUT' || req.method == 'DELETE' || req.method == 'POST') && req.headers.authorization != "qQfg52t5aw2dW") {
+
+    const auth = ((req.method == 'PUT' || req.method == 'DELETE' || req.method == 'POST') && req.headers.authorization != "qQfg52t5aw2dW")
+    const comments = (req.path == '/api/comments' && (req.method == 'POST' || req.method == 'GET'))
+    // console.log(req.path, req.method, req.path == '/api/comments', req.method == 'DELETE')
+    if (comments) {
+    }
+    else if (!auth) {
+    }
+    else {
         console.log('неа')
         return res.status(403).send({ 'status': 'Ага, щас' })
     }

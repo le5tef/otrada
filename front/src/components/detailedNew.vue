@@ -48,8 +48,8 @@
           :hide-delimiters="post.media.length > 1 ? false : true"
         >
           <v-carousel-item
-            v-for="(item, i) in post.media"
-            :key="i"
+            v-for="item in post.media"
+            :key="item"
             :src="item"
             reverse-transition="fade-transition"
             transition="fade-transition"
@@ -69,6 +69,78 @@
               <v-btn text v-if="post.link" :href="post.link"> Ссылка </v-btn>
             </v-col>
           </v-row>
+        </div>
+        <div
+          class="white rounded-xl mt-4 pa-4"
+          v-if="currentPostsComments.length"
+        >
+          <div
+            class="my-2 pt-1 pb-2"
+            v-for="(comment, i) in currentPostsComments"
+            :key="i"
+            :class="
+              i == currentPostsComments.length - 1 ||
+              currentPostsComments.length == 1
+                ? ''
+                : 'underline'
+            "
+          >
+            <div class="d-flex flex-row align-center" v-if="!auth">
+              <v-spacer></v-spacer>
+              <v-btn @click="deleteCurrentComment(comment._id)" icon
+                ><v-icon>mdi-close</v-icon></v-btn
+              >
+            </div>
+            <div class="d-flex flex-row align-center">
+              <strong>{{ comment.author }}</strong>
+              <v-spacer></v-spacer>
+              <div>
+                <v-icon
+                  v-for="(star, i) in comment.rate"
+                  :key="i"
+                  style="color: rgb(255, 187, 0)"
+                  >mdi-star</v-icon
+                >
+              </div>
+            </div>
+            <div v-html="comment.description"></div>
+          </div>
+        </div>
+        <div class="white rounded-xl mt-4 pa-4">
+          <v-btn
+            @click="showComments = true"
+            v-show="!showComments"
+            text
+            width="100%"
+          >
+            Добавить коментарий
+          </v-btn>
+          <div v-show="showComments">
+            <div class="d-flex mb-2 align-center">
+              Ваша оценка:
+              <v-btn
+                @mouseover="starHover(i + 1)"
+                @click="setRate(i + 1)"
+                icon
+                v-for="(star, i) in 5"
+                :key="star"
+              >
+                <v-icon :id="i + 1" style="color: grey">mdi-star</v-icon>
+              </v-btn>
+              <v-spacer></v-spacer>
+              <v-btn text @click="showComments = false"
+                ><v-icon>mdi-close</v-icon></v-btn
+              >
+            </div>
+            <v-text-field
+              v-model="name"
+              solo
+              placeholder="Ваше имя"
+              clearable
+            ></v-text-field>
+            <ckeditor :editor="editor" v-model="editorData"></ckeditor>
+            <v-btn @click="add()" text width="100%"> Отправить </v-btn>
+          </div>
         </div>
       </v-col>
       <v-col
@@ -92,7 +164,8 @@
 
 <script>
 import New from "../components/New.vue";
-import { mapState, mapGetters } from "vuex";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { mapState, mapGetters, mapActions } from "vuex";
 export default {
   props: {
     post: {
@@ -106,16 +179,66 @@ export default {
     return {
       showVideo: false,
       showImages: true,
+      showComments: false,
+      editor: ClassicEditor,
+      name: "",
+      editorData: "",
+      rate: "",
+      auth: false,
     };
+  },
+  methods: {
+    ...mapActions(["createComment", "deleteComment"]),
+    starHover(val) {
+      for (let i = 1; i <= 5; i++) {
+        document.getElementById(i).style.color = "grey";
+      }
+      for (let i = 1; i <= val; i++) {
+        document.getElementById(i).style.color = "rgb(255, 187, 0)";
+      }
+    },
+    setRate(val) {
+      this.rate = val;
+    },
+    add() {
+      var comment = {
+        description: this.editorData,
+        post_id: this.post.id,
+        author: this.name,
+        rate: this.rate,
+      };
+      let config = { comment: comment, post_id: this.post.id };
+      this.createComment(config);
+      this.name = "";
+      this.rate = "";
+      this.editorData = "";
+    },
+    deleteCurrentComment(id) {
+      var config = { id: id, post_id: this.post.id };
+      this.deleteComment(config);
+    },
+    async check() {
+      const resp = await this.$store.dispatch("checkPassword");
+      if (resp.data == "ok") {
+        this.auth = true;
+      }
+    },
   },
   computed: {
     ...mapGetters(["oldPosts", "newPosts"]),
-    ...mapState(["posts"]),
+    ...mapState(["posts", "currentPostsComments"]),
   },
-  mounted: async function () {
-    if (await this.post) {
-      console.log(this.post.video.length);
-    }
+  mounted() {
+    this.$store.dispatch("fetchComments", this.post.id);
+  },
+  watch: {
+    post: {
+      deep: true,
+      handler() {
+        console.log("поменялась");
+        this.$store.dispatch("fetchComments", this.post.id);
+      },
+    },
   },
 };
 </script>
@@ -124,5 +247,13 @@ export default {
 .back {
   background-color: #f4d03f;
   background-image: linear-gradient(132deg, #f4d03f 0%, #16a085 100%);
+}
+.star:hover {
+  color: rgb(255, 187, 0);
+}
+.underline {
+  -webkit-box-shadow: 0px 2px 0px 0px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0px 2px 0px 0px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 2px 0px 0px rgba(34, 60, 80, 0.2);
 }
 </style>
