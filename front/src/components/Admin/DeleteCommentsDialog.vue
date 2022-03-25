@@ -17,7 +17,11 @@
                 v-for="post in posts"
                 @click="fetchComments(post._id)"
                 :key="post._id"
-                >{{ post.title }}</v-btn
+                >{{
+                  post.title.length > 18
+                    ? post.title.slice(0, 18) + "..."
+                    : post.title
+                }}</v-btn
               >
             </v-col>
             <v-col cols="6">
@@ -84,3 +88,6 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+</style>
