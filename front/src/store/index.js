@@ -69,7 +69,7 @@ export default new Vuex.Store({
     },
     setComments(state, data) {
       state.currentPostsComments = data
-    }
+    },
   },
   actions: {
     fetchComments({ commit }, post_id) {
@@ -209,10 +209,13 @@ export default new Vuex.Store({
     async deleteComment(context, config) {
       await apiService.delete(`/api/comments/${config.id}`)
       context.dispatch('fetchComments', config.post_id)
+
     },
     async checkPassword() {
       return await apiService.post('/api/check-pass')
-    }
+    },
+
+
 
 
   },
@@ -268,6 +271,7 @@ export default new Vuex.Store({
       })
       return array.slice(0, 3)
     }
+
 
   },
   modules: {

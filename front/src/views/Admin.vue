@@ -40,6 +40,7 @@
           <DeleteBack class="my-2" />
           <DeletePost class="my-2" />
           <DeleteCategory class="my-2" />
+          <DeleteComments class="my-2" />
           <v-btn width="100%" @click="logout()">ВЫЙТИ</v-btn>
         </div>
       </div>
@@ -54,6 +55,7 @@ import DeleteBack from "../components/Admin/DeleteBackDialog.vue";
 import DeletePost from "../components/Admin/DeletePostDialog.vue";
 import CreateCategory from "../components/Admin/CreateCategoryDialog.vue";
 import DeleteCategory from "../components/Admin/DeleteCategoryDialog.vue";
+import DeleteComments from "../components/Admin/DeleteCommentsDialog.vue";
 export default {
   components: {
     CreatePost,
@@ -62,6 +64,7 @@ export default {
     DeletePost,
     CreateCategory,
     DeleteCategory,
+    DeleteComments,
   },
   methods: {
     async authification(pass) {
