@@ -107,6 +107,19 @@ export default new Vuex.Store({
             })
             return post
           })
+          let currentIndex = posts.length, randomIndex;
+
+          // While there remain elements to shuffle...
+          while (currentIndex != 0) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            // And swap it with the current element.
+            [posts[currentIndex], posts[randomIndex]] = [
+              posts[randomIndex], posts[currentIndex]];
+          }
           commit('setPosts', posts);
           return posts;
         })
