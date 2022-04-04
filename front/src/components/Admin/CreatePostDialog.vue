@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center">
-    <v-dialog v-model="dialog" persistent max-width="600px">
+    <v-dialog v-model="dialog" persistent max-width="700px">
       <template v-slot:activator="{ on, attrs }">
         <v-btn width="300px" dark v-bind="attrs" v-on="on">
           Создать пост
@@ -23,13 +23,13 @@
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-textarea
-                    filled
+                  <v-input
+                    class="ckeditor"
                     :rules="rules"
-                    name="input-7-4"
-                    label="Текст поста"
                     v-model="description"
-                  ></v-textarea> </v-col
+                  >
+                    <ckeditor :editor="editor" v-model="description"></ckeditor>
+                  </v-input> </v-col
                 ><v-col cols="12">
                   <v-checkbox
                     v-model="checkbox"
@@ -96,6 +96,7 @@
 </template>
 
 <script>
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { mapGetters, mapActions } from "vuex";
 export default {
   data: () => ({
@@ -106,6 +107,7 @@ export default {
     contacts: "",
     link: "",
     dialog: false,
+    editor: ClassicEditor,
     type: "Новость",
     files: [],
     rules: [(v) => !!v || "Не заполнено"],
@@ -114,7 +116,8 @@ export default {
     ...mapActions(["createPost"]),
     add() {
       const valid = this.$refs.form.validate();
-      if (valid) {
+      const descriptionValid = !!this.description;
+      if (valid && descriptionValid) {
         var post = {
           title: this.title,
           description: this.description,
@@ -127,7 +130,9 @@ export default {
         };
 
         this.createPost(post);
+
         this.$refs.form.reset();
+        this.description = "";
       }
     },
   },
@@ -146,3 +151,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.ckeditor >>> .v-input__slot {
+  display: block !important;
+}
+</style>

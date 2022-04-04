@@ -9,7 +9,7 @@
           <p
             class="post__excerpt"
             v-if="post.description"
-            v-text="
+            v-html="
               isSmall
                 ? post.description.slice(0, 35) + '...'
                 : $vuetify.breakpoint.name == 'xl'
