@@ -45,7 +45,7 @@
         <v-carousel
           :height="
             $vuetify.breakpoint.name == 'xs' || $vuetify.breakpoint.name == 'sm'
-              ? 250
+              ? 200
               : 400
           "
           v-if="showImages"
