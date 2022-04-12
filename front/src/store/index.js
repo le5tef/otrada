@@ -156,10 +156,11 @@ export default new Vuex.Store({
         method: "GET"
       })
         .then((response) => {
-          const banner = {
-            'title': response.data.title,
-            'media': process.env.VUE_APP_STATIC_BASE + response.data.media
-          }
+
+          let banner = response.data;
+
+          banner.media = process.env.VUE_APP_STATIC_BASE + response.data.media
+
           commit('setBanner', banner);
           return banner;
         })
