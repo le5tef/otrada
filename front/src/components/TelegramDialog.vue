@@ -16,7 +16,7 @@
               ? 300
               : $vuetify.breakpoint.name == 'sm'
               ? '450'
-              : '800'
+              : '650'
           "
         />
 
