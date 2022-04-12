@@ -41,6 +41,7 @@
           <DeletePost class="my-2" />
           <DeleteCategory class="my-2" />
           <DeleteComments class="my-2" />
+          <ChangeBanner class="my-2" />
           <v-btn width="100%" @click="logout()">ВЫЙТИ</v-btn>
         </div>
       </div>
@@ -53,6 +54,7 @@ import CreatePost from "../components/Admin/CreatePostDialog.vue";
 import CreateBack from "../components/Admin/CreateBackDialog.vue";
 import DeleteBack from "../components/Admin/DeleteBackDialog.vue";
 import DeletePost from "../components/Admin/DeletePostDialog.vue";
+import ChangeBanner from "../components/Admin/ChangeBannerDialog.vue";
 import CreateCategory from "../components/Admin/CreateCategoryDialog.vue";
 import DeleteCategory from "../components/Admin/DeleteCategoryDialog.vue";
 import DeleteComments from "../components/Admin/DeleteCommentsDialog.vue";
@@ -62,6 +64,7 @@ export default {
     CreateBack,
     DeleteBack,
     DeletePost,
+    ChangeBanner,
     CreateCategory,
     DeleteCategory,
     DeleteComments,

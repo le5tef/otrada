@@ -37,6 +37,7 @@ export default {
     this.$store.dispatch("fetchCategories");
     this.$store.dispatch("fetchWeather");
     this.$store.dispatch("fetchExchange");
+    this.$store.dispatch("fetchBanner");
   },
   computed: {
     ...mapState(["backs"]),

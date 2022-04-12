@@ -36,6 +36,7 @@ export default new Vuex.Store({
     backs: [],
     categories: [],
     posts: [],
+    banner: null,
     currentPostsComments: [],
   },
   mutations: {
@@ -69,6 +70,9 @@ export default new Vuex.Store({
     },
     setComments(state, data) {
       state.currentPostsComments = data
+    },
+    setBanner(state, data) {
+      state.banner = data
     },
   },
   actions: {
@@ -147,6 +151,19 @@ export default new Vuex.Store({
         })
 
     },
+    fetchBanner({ commit }) {
+      return apiService('/api/banner', {
+        method: "GET"
+      })
+        .then((response) => {
+          const banner = {
+            'title': response.data.title,
+            'media': process.env.VUE_APP_STATIC_BASE + response.data.media
+          }
+          commit('setBanner', banner);
+          return banner;
+        })
+    },
     fetchBacks({ commit }) {
       return apiService('/api/backs', {
         method: "GET"
@@ -175,6 +192,17 @@ export default new Vuex.Store({
           }
         });
       context.dispatch('fetchData')
+    },
+    async changeBanner(context, banner) {
+      var formData = new FormData();
+      formData.append("title", banner.title)
+      formData.append("media", banner.media);
+      await apiService.put(`/api/banner/${context.state.banner._id}/`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      context.dispatch('fetchBanner')
     },
     createCategory(context, category) {
       apiService.post("/api/categories/", category)

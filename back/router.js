@@ -5,6 +5,7 @@ import BackController from './BackController.js'
 import WeatherController from './WeatherController.js'
 import ExchangeController from './ExchangeController.js'
 import CommentController from './CommentController.js'
+import BannerController from './BannerController.js'
 
 const router = new Router()
 router.delete('/posts/:id/delete-media', PostController.deleteMedia)
@@ -29,6 +30,9 @@ router.get('/exchange', ExchangeController.getLastExchange)
 router.post('/comments', CommentController.create)
 router.get('/comments/:post', CommentController.getAllByPost)
 router.delete('/comments/:id', CommentController.delete)
+router.post('/banner', BannerController.create)
+router.put('/banner/:id', BannerController.update)
+router.get('/banner/', BannerController.getBannner)
 
 
 export default router;
