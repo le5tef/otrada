@@ -11,12 +11,19 @@
         </div>
         <v-img
           :src="banner.media"
-          :width="
+          :max-height="
             $vuetify.breakpoint.name == 'xs'
               ? 300
               : $vuetify.breakpoint.name == 'sm'
-              ? '450'
-              : '650'
+              ? 400
+              : 500
+          "
+          :max-width="
+            $vuetify.breakpoint.name == 'xs'
+              ? 300
+              : $vuetify.breakpoint.name == 'sm'
+              ? 450
+              : 600
           "
         />
 
