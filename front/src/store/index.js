@@ -160,7 +160,8 @@ export default new Vuex.Store({
           let banner = {
             title: response.data.title,
             media: process.env.VUE_APP_STATIC_BASE + response.data.media,
-            isVideo: response.data.isVideo
+            isVideo: response.data.isVideo,
+            _id: response.data._id,
           };
 
           banner.media = process.env.VUE_APP_STATIC_BASE + response.data.media
@@ -200,7 +201,7 @@ export default new Vuex.Store({
     },
     async changeBanner(context, banner) {
       var formData = new FormData();
-      formData.append("title", banner.title)
+      formData.append("title", banner.title);
       formData.append("media", banner.media);
       await apiService.put(`/api/banner/${context.state.banner._id}/`, formData, {
         headers: {
