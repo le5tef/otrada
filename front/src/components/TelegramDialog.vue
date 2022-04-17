@@ -28,6 +28,7 @@
           "
         />
         <video
+          loop
           :width="
             $vuetify.breakpoint.name == 'xs'
               ? 300
