@@ -157,7 +157,11 @@ export default new Vuex.Store({
       })
         .then((response) => {
 
-          let banner = response.data;
+          let banner = {
+            title: response.data.title,
+            media: process.env.VUE_APP_STATIC_BASE + response.data.media,
+            isVideo: response.data.isVideo
+          };
 
           banner.media = process.env.VUE_APP_STATIC_BASE + response.data.media
 

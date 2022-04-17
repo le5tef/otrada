@@ -10,6 +10,7 @@
           </v-btn>
         </div>
         <v-img
+          v-if="!banner.isVideo"
           :src="banner.media"
           :max-height="
             $vuetify.breakpoint.name == 'xs'
@@ -26,7 +27,19 @@
               : 600
           "
         />
-
+        <video
+          :width="
+            $vuetify.breakpoint.name == 'xs'
+              ? 300
+              : $vuetify.breakpoint.name == 'sm'
+              ? 450
+              : 600
+          "
+          v-if="banner.isVideo"
+          :src="banner.media"
+          autoplay
+          muted
+        ></video>
         <div
           v-html="banner.title"
           class="mt-4"
